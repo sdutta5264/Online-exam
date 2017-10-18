@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script src="al.js"></script>
+	<div id="exit">
+			<input type="button" class="btn btn-primary btn-lg" value="LogOut"
+			onClick="logout()" /> 
+	</div>
+	
+	<div id="qform">	
+		<table id = "table">
+		<tr> <td><h3>Question Management</h3> 
+			<div id="statement">
+					Statement:<br /> <input id='stmt' /><br /><br />
+			</div>
+			<div id="choiceone"> 
+				    <input id='c1' placeholder="choice1" /><br /><br /> 
+					<input id='c2' placeholder="choice2"/><br /> <br />
+			</div>
+			<div id="choicetwo">
+					<input id='c3'  placeholder="choice3"/><br /><br />
+					<input id='c4' placeholder="choice4"/><br /> <br />
+			</div>
+			
+		
+				<input id='ans' placeholder="answer"><br /><br />
+				<input type='button' class="btn btn-primary btn-lg" onClick='addQuestion()' value='ADD' />
+				<input type='button' class="btn btn-primary btn-lg" onClick='removeQuestion()' value='REMOVE' /><br><br><br>
+			</td>
+			
+		</table>
+		
+	</div>
+	<td><div id="output"></div></td>		
+
+<script>
+			
+	function addQuestion() {
+		Q.push({
+			statement : getValue('stmt'),
+			choices : [ getValue('c1'), getValue('c2'), getValue('c3'),
+					getValue('c4') ],
+			answer : getValue('ans')
+		})
+		store(function() {
+			retrieveAndDisplay()
+		})
+	}
+
+	function removeQuestion() {
+		Q.pop()
+		store(function() {
+			retrieveAndDisplay()
+		})
+	}
+	
+	function retrieveAndDisplay() {
+		retrieve(function() {
+			var s = ''
+			s += '</ol><h3>Questions</h3><ol>'
+			for (var i = 0; i < Q.length; ++i)
+				s += '<li>' + Q[i].statement + '</li>'
+			s += '</ol>'
+			getElement('output').innerHTML = s
+		})
+	}
+
+	retrieveAndDisplay()
+		
+</script>
+
+<style>
+
+	#exit{
+		margin-left:1150px;
+		margin-top:20px;
+	}
+	
+	#qform {
+	border: solid red 2px;
+	width: 400px;
+	margin-left: 320px;
+	height: 450px;
+	margin-top: 100px;
+	background-color:aqua;
+	padding-left:10px;
+	}
+	
+	#output{
+		margin-left:900px;
+		margin-top:-450px;
+		border:solid red 2px;
+		background-color:aqua;
+		width:300px;
+		height:450px;
+	}
+	body {
+		background:#da70d6;
+	}
+	
+</style>
+</body>
+</html>
